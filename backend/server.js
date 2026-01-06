@@ -25,7 +25,7 @@ const CACHE_CONFIG = {
 // Small helper so we don't crash on very old Node versions without fetch.
 const hasFetch = typeof fetch === 'function'
 
-// Attempt to connect to InterSystems Cache / IRIS.
+// Attempt to connect to InterSystems Caché.
 // - If a REST endpoint is configured, we make a simple GET request to it.
 // - If that request fails (network error, DNS, refused connection, etc.),
 //   we treat that as "cannot connect" and the API routes will fall back to
@@ -70,8 +70,8 @@ async function connectToCache() {
 // Remove this when connecting to actual Cache database.
 //
 // In a real implementation you would:
-// 1) Call out to a REST service exposed by InterSystems IRIS / Caché, OR
-// 2) Use an ODBC / JDBC driver to run SQL against your IRIS / Caché namespace.
+// 1) Call out to a REST service exposed by InterSystems Caché, OR
+// 2) Use an ODBC / JDBC driver to run SQL against your Caché namespace.
 //
 // Example (REST) for account balance:
 //   const res = await fetch(
@@ -174,7 +174,7 @@ app.get('/api/health', async function(req, res) {
 // IMPORTANT:
 // This is the HTTP API that the React app calls: GET /api/account/:accountId
 // Whatever JSON you send back here is what `AccountInfo.jsx` receives in `data`.
-// The `currentBalance` field from Caché/IRIS should be mapped into that JSON,
+// The `currentBalance` field from Caché should be mapped into that JSON,
 // so the React UI can display it without further transformation.
 app.get('/api/account/:accountId', async function(req, res) {
   try {
@@ -186,7 +186,7 @@ app.get('/api/account/:accountId', async function(req, res) {
     if (cacheConnection.connected) {
       // Try to query Cache for this account ID
       try {
-        // Example using a REST endpoint exposed by IRIS / Caché:
+      // Example using a REST endpoint exposed by Caché:
         // Adjust the path based on your actual Cache REST API structure
         const url = `${CACHE_CONFIG.restEndpoint}/account/${encodeURIComponent(accountId)}`
         const response = await fetch(url, {
@@ -335,12 +335,12 @@ app.put('/api/account/:accountId', async function(req, res) {
       }
     })
 
-    // Try to update Cache / IRIS if connected
+    // Try to update Cache if connected
     const cacheConnection = await connectToCache()
     if (cacheConnection.connected) {
       try {
         // Example of how you might call a REST endpoint to update account info.
-        // Adjust the URL and payload to match your actual IRIS / Caché API.
+        // Adjust the URL and payload to match your actual Caché API.
         const url = `${CACHE_CONFIG.restEndpoint}/account/${encodeURIComponent(accountId)}`
         await fetch(url, {
           method: 'PUT',

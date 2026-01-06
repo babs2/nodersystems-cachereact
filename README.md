@@ -144,17 +144,17 @@ The backend currently returns mock data so you can see the UI without a live Cac
   - `GET /api/account/:accountId` → used by `AccountInfo.jsx` to show account + **currentBalance**.
   - `GET /api/debts/:accountId` → used by `DebtView.jsx` to show debts and **totalDebt** (“Total owed to Treasury”).
 - Backend (`backend/server.js`) is responsible for:
-  - Connecting to InterSystems IRIS / Caché (REST or ODBC).
-  - Mapping Cache/IRIS fields into JSON the React app expects.
+  - Connecting to InterSystems Caché (REST or ODBC).
+  - Mapping Caché fields into JSON the React app expects.
 
-## 7) Connecting to InterSystems Cache / IRIS (replace mocks)
+## 7) Connecting to InterSystems Caché (replace mocks)
 
 In `backend/server.js`:
 
 - Replace the mock objects with real queries.
 - There are inline comments showing:
-  - Where to call an IRIS / Caché REST endpoint (using `CACHE_REST_ENDPOINT` and basic auth).
-  - How to map the Cache response into:
+  - Where to call a Caché REST endpoint (using `CACHE_REST_ENDPOINT` and basic auth).
+  - How to map the Caché response into:
     - `currentBalance` for account info.
     - `debts` and `totalDebt` for the debts API.
 

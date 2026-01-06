@@ -37,7 +37,7 @@ function DebtView() {
     setError(null)
 
     // Both of these calls go to your backend, which is responsible for reading
-    // from the InterSystems IRIS / Caché database and shaping the JSON:
+    // from the InterSystems Caché database and shaping the JSON:
     //
     // - /api/account/:id  -> account info, including currentBalance
     // - /api/debts/:id    -> array of debts and totalDebt (sum of all amounts)

@@ -34,7 +34,7 @@ function AccountInfo() {
     setError(null)
 
     // This calls your backend API route at GET /api/account/:accountId
-    // The backend in turn talks to InterSystems IRIS / Caché and returns JSON.
+    // The backend in turn talks to InterSystems Caché and returns JSON.
     // Example of JSON coming back from the API:
     // {
     //   "accountNumber": "12345",
