@@ -80,7 +80,7 @@ CACHE_NAMESPACE=USER
 CACHE_USERNAME=_SYSTEM
 CACHE_PASSWORD=SYS
 
-# Optional REST endpoint if you expose APIs from IRIS/Caché:
+# Optional REST endpoint where we expose APIs from Caché??? Do we expose them??? 
 # CACHE_REST_ENDPOINT=http://localhost:52773/csp/user
 
 PORT=5001
