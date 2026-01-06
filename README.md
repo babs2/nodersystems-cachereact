@@ -1,6 +1,6 @@
 # Debt Self-Service React + InterSystems Cache App
 
-This project is a simple self-service portal for viewing account information and managing debts, with a React frontend and a Node/Express backend designed to connect to an InterSystems IRIS / Caché database.
+This project is a simple self-service portal for viewing account information and managing debts, with a React frontend and a Node/Express backend designed to connect to an InterSystems Caché database.. hopefully ;)  .
 
 ## Project Structure
 
