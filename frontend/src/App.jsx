@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation 
 import AccountInfo from './components/AccountInfo'
 import DebtView from './components/DebtView'
 import Login from './components/Login'
+import HearingInfo from './components/HearingInfo'
+import AWGBackground from './components/AWGBackground'
 import './App.css'
 
 function NavBar() {
@@ -57,6 +59,8 @@ function App() {
         <main className="main-content">
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/hearing" element={<HearingInfo />} />
+            <Route path="/awg-background" element={<AWGBackground />} />
             <Route path="/" element={<AccountInfo />} />
             <Route path="/debts" element={<DebtView />} />
           </Routes>

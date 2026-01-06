@@ -539,11 +539,23 @@ function DebtView() {
 
               <div className="accordion-card">
                 <button className={`accordion-header ${openCard === 'dispute' ? 'open' : ''}`} onClick={function() { toggleCard('dispute') }}>
-                  <span>Dispute</span>
+                  <span>Dispute / Request Garnishment Hearing</span>
                   <span className="chevron">{openCard === 'dispute' ? '−' : '+'}</span>
                 </button>
                 <div className={`accordion-body ${openCard === 'dispute' ? 'open' : ''}`}>
-                  <p className="muted">Start a dispute by contacting support or submitting a dispute form. (Placeholder)</p>
+                  <p className="muted">
+                    Start a dispute or request a garnishment hearing. Use this section to learn about your
+                    options and access official hearing request forms.
+                  </p>
+                  <button
+                    type="button"
+                    className="btn-primary small-btn"
+                    onClick={function() {
+                      window.location.href = '/hearing'
+                    }}
+                  >
+                    View hearing information and forms
+                  </button>
                 </div>
               </div>
 

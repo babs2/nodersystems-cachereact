@@ -335,6 +335,11 @@
   color: #155724;
 }
 
+.status-badge.in-garnishment {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
 .status-badge.active,
 .status-badge.open {
   background: #cfe2ff;

@@ -143,9 +143,18 @@ const mockDebtData = {
         dateIncurred: '2023-10-01',
         datePlaced: '2023-11-01',
         referringAgency: 'Treasury Collections'
+      },
+      {
+        debtId: 'DEBT004',
+        amount: 600.00,
+        dueDate: '2024-03-10',
+        status: 'In Garnishment',
+        dateIncurred: '2023-09-15',
+        datePlaced: '2024-02-20',
+        referringAgency: 'Treasury Collections'
       }
     ],
-    totalDebt: 1250.50
+    totalDebt: 1850.50
   }
 }
 
