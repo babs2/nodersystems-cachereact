@@ -1,0 +1,63 @@
+.floating-translate-container {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 999;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 0.75rem;
+  min-width: 200px;
+}
+
+.floating-translate-wrapper {
+  display: block;
+}
+
+/* Style the Google Translate dropdown */
+#floating_google_translate_element select {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  font-size: 0.9rem;
+  color: #374151;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+#floating_google_translate_element select:hover {
+  border-color: #667eea;
+}
+
+#floating_google_translate_element select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+/* Hide the "Select Language" text that Google adds */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+/* Hide the Google Translate branding bar */
+.goog-te-balloon-frame {
+  display: none !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .floating-translate-container {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    min-width: auto;
+    max-width: 250px;
+  }
+}

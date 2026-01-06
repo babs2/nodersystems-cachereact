@@ -261,8 +261,17 @@
   border-radius: 12px;
   color: white;
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.balance-content {
+  display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  flex: 1;
 }
 
 .balance-label {
@@ -276,10 +285,10 @@
 }
 
 .balance-pay-button {
-  align-self: flex-start;
-  margin-top: 0.75rem;
   background: #ffffff;
   color: #4c51bf;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .balance-pay-button:hover {

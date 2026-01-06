@@ -178,6 +178,32 @@ function AccountInfo() {
         {accountData && (
           <div className="account-details">
             <div className="detail-section">
+              <h3>Balance Information</h3>
+              <div className="balance-card">
+                <div className="balance-item">
+                  <div className="balance-content">
+                    <span className="balance-label">Current Balance</span>
+                    <span className="balance-value">
+                      {/* This is where the balance from the API is inserted into the UI.
+                          The backend must supply `currentBalance` in the response JSON,
+                          and React will format and display it here. */}
+                      ${accountData.currentBalance?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn-primary balance-pay-button"
+                    onClick={function() {
+                      window.open('https://www.pay.gov/public/form/entry/101/16531440/', '_blank', 'noopener')
+                    }}
+                  >
+                    Pay now
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="detail-section">
               <h3>Account Overview</h3>
               <div className="detail-grid">
                 <div className="detail-item">
@@ -360,30 +386,6 @@ function AccountInfo() {
                       {savingTaxId ? 'Saving…' : 'Update taxpayer ID'}
                     </button>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="detail-section">
-              <h3>Balance Information</h3>
-              <div className="balance-card">
-                <div className="balance-item">
-                  <span className="balance-label">Current Balance</span>
-                  <span className="balance-value">
-                    {/* This is where the balance from the API is inserted into the UI.
-                        The backend must supply `currentBalance` in the response JSON,
-                        and React will format and display it here. */}
-                    ${accountData.currentBalance?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
-                  </span>
-                  <button
-                    type="button"
-                    className="btn-primary balance-pay-button"
-                    onClick={function() {
-                      window.open('https://www.pay.gov/public/form/entry/101/16531440/', '_blank', 'noopener')
-                    }}
-                  >
-                    Pay now
-                  </button>
                 </div>
               </div>
             </div>
