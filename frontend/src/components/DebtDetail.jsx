@@ -77,10 +77,6 @@ function DebtDetail() {
 
         <div className="detail-grid">
           <div className="detail-item">
-            <span className="detail-label">Description</span>
-            <span className="detail-value">{debt.description || 'N/A'}</span>
-          </div>
-          <div className="detail-item">
             <span className="detail-label">Amount</span>
             <span className="detail-value amount">
               ${(debt.amount || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}

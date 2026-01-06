@@ -6,6 +6,12 @@ function AccountInfo() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [accountId, setAccountId] = useState('')
+  const [editData, setEditData] = useState(null)
+  const [savingEmail, setSavingEmail] = useState(false)
+  const [savingAddress, setSavingAddress] = useState(false)
+  const [savingPhone, setSavingPhone] = useState(false)
+  const [savingTaxId, setSavingTaxId] = useState(false)
+  const [showTaxpayerId, setShowTaxpayerId] = useState(false)
 
   useEffect(function() {
     // Load account ID from localStorage if available
@@ -50,6 +56,7 @@ function AccountInfo() {
       })
       .then(function(data) {
         setAccountData(data)
+        setEditData(data)
         localStorage.setItem('accountId', id)
         setLoading(false)
       })
@@ -62,6 +69,70 @@ function AccountInfo() {
   function handleSubmit(e) {
     e.preventDefault()
     fetchAccountInfo(accountId)
+  }
+
+  function handleFieldChange(field, value) {
+    setEditData(function(prev) {
+      return {
+        ...prev,
+        [field]: value
+      }
+    })
+  }
+
+  function savePartial(updates, setSavingFlag) {
+    if (!accountData || !editData) return
+
+    const id = accountData.accountNumber || accountId
+    if (!id) return
+
+    setSavingFlag(true)
+    setError(null)
+
+    fetch(`/api/account/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updates)
+    })
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Failed to save account changes')
+        }
+        return response.json()
+      })
+      .then(function(updated) {
+        setAccountData(updated)
+        setEditData(updated)
+        setSavingFlag(false)
+      })
+      .catch(function(err) {
+        setError(err.message)
+        setSavingFlag(false)
+      })
+  }
+
+  function handleSaveEmail() {
+    savePartial({ email: editData.email || '' }, setSavingEmail)
+  }
+
+  function handleSavePhone() {
+    savePartial({ phone: editData.phone || '' }, setSavingPhone)
+  }
+
+  function handleSaveAddress() {
+    savePartial({
+      address1: editData.address1 || '',
+      address2: editData.address2 || '',
+      city: editData.city || '',
+      state: editData.state || '',
+      zipCode: editData.zipCode || ''
+    }, setSavingAddress)
+  }
+
+  function handleSaveTaxId() {
+    savePartial({ taxpayerId: editData.taxpayerId || '' }, setSavingTaxId)
   }
 
   if (loading && !accountData) {
@@ -110,10 +181,6 @@ function AccountInfo() {
               <h3>Account Overview</h3>
               <div className="detail-grid">
                 <div className="detail-item">
-                  <span className="detail-label">Account Number:</span>
-                  <span className="detail-value">{accountData.accountNumber || 'N/A'}</span>
-                </div>
-                <div className="detail-item">
                   <span className="detail-label">Account Holder:</span>
                   <span className="detail-value">{accountData.accountHolder || 'N/A'}</span>
                 </div>
@@ -123,13 +190,176 @@ function AccountInfo() {
                     {accountData.status || 'N/A'}
                   </span>
                 </div>
-                <div className="detail-item">
-                  <span className="detail-label">Email:</span>
-                  <span className="detail-value">{accountData.email || 'N/A'}</span>
+              </div>
+            </div>
+
+            <div className="detail-section contact-section">
+              <div className="info-groups">
+                <div className="info-group">
+                  <div className="info-group-header">
+                    <h4>Contact email</h4>
+                  </div>
+                  <div className="info-group-body">
+                    <label className="detail-label" htmlFor="email-input">
+                      Email
+                    </label>
+                    <input
+                      id="email-input"
+                      type="email"
+                      className="detail-input"
+                      value={editData?.email || ''}
+                      onChange={function(e) {
+                        handleFieldChange('email', e.target.value)
+                      }}
+                      placeholder="Email address"
+                    />
+                    <button
+                      type="button"
+                      className="btn-primary small-btn"
+                      onClick={handleSaveEmail}
+                      disabled={savingEmail}
+                    >
+                      {savingEmail ? 'Saving…' : 'Update email'}
+                    </button>
+                  </div>
                 </div>
-                <div className="detail-item">
-                  <span className="detail-label">Phone:</span>
-                  <span className="detail-value">{accountData.phone || 'N/A'}</span>
+
+                <div className="info-group">
+                  <div className="info-group-header">
+                    <h4>Mailing address</h4>
+                  </div>
+                  <div className="info-group-body">
+                    <label className="detail-label" htmlFor="address1-input">
+                      Address
+                    </label>
+                    <input
+                      id="address1-input"
+                      type="text"
+                      className="detail-input"
+                      value={editData?.address1 || ''}
+                      onChange={function(e) {
+                        handleFieldChange('address1', e.target.value)
+                      }}
+                      placeholder="Street address line 1"
+                    />
+                    <input
+                      type="text"
+                      className="detail-input"
+                      value={editData?.address2 || ''}
+                      onChange={function(e) {
+                        handleFieldChange('address2', e.target.value)
+                      }}
+                      placeholder="Street address line 2 (optional)"
+                    />
+                    <div className="address-row">
+                      <input
+                        type="text"
+                        className="detail-input"
+                        value={editData?.city || ''}
+                        onChange={function(e) {
+                          handleFieldChange('city', e.target.value)
+                        }}
+                        placeholder="City"
+                      />
+                      <input
+                        type="text"
+                        className="detail-input"
+                        value={editData?.state || ''}
+                        onChange={function(e) {
+                          handleFieldChange('state', e.target.value)
+                        }}
+                        placeholder="State"
+                      />
+                      <input
+                        type="text"
+                        className="detail-input"
+                        value={editData?.zipCode || ''}
+                        onChange={function(e) {
+                          handleFieldChange('zipCode', e.target.value)
+                        }}
+                        placeholder="ZIP code"
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      className="btn-primary small-btn"
+                      onClick={handleSaveAddress}
+                      disabled={savingAddress}
+                    >
+                      {savingAddress ? 'Saving…' : 'Update address'}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="info-group">
+                  <div className="info-group-header">
+                    <h4>Phone</h4>
+                  </div>
+                  <div className="info-group-body">
+                    <label className="detail-label" htmlFor="phone-input">
+                      Phone
+                    </label>
+                    <input
+                      id="phone-input"
+                      type="tel"
+                      className="detail-input"
+                      value={editData?.phone || ''}
+                      onChange={function(e) {
+                        handleFieldChange('phone', e.target.value)
+                      }}
+                      placeholder="Phone number"
+                    />
+                    <button
+                      type="button"
+                      className="btn-primary small-btn"
+                      onClick={handleSavePhone}
+                      disabled={savingPhone}
+                    >
+                      {savingPhone ? 'Saving…' : 'Update phone'}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="info-group">
+                  <div className="info-group-header">
+                    <h4>Taxpayer ID</h4>
+                  </div>
+                  <div className="info-group-body">
+                    <label className="detail-label" htmlFor="taxpayer-input">
+                      Taxpayer ID (SSN or EIN)
+                    </label>
+                    <div className="taxpayer-row">
+                      <input
+                        id="taxpayer-input"
+                        type={showTaxpayerId ? 'text' : 'password'}
+                        className="detail-input"
+                        value={editData?.taxpayerId || ''}
+                        onChange={function(e) {
+                          handleFieldChange('taxpayerId', e.target.value)
+                        }}
+                        placeholder="Taxpayer ID"
+                      />
+                      <button
+                        type="button"
+                        className="peek-button"
+                        onClick={function() {
+                          setShowTaxpayerId(function(prev) {
+                            return !prev
+                          })
+                        }}
+                      >
+                        {showTaxpayerId ? 'Hide' : 'Peek'}
+                      </button>
+                    </div>
+                    <button
+                      type="button"
+                      className="btn-primary small-btn"
+                      onClick={handleSaveTaxId}
+                      disabled={savingTaxId}
+                    >
+                      {savingTaxId ? 'Saving…' : 'Update taxpayer ID'}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -145,20 +375,18 @@ function AccountInfo() {
                         and React will format and display it here. */}
                     ${accountData.currentBalance?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
                   </span>
+                  <button
+                    type="button"
+                    className="btn-primary balance-pay-button"
+                    onClick={function() {
+                      window.open('https://www.pay.gov/public/form/entry/101/16531440/', '_blank', 'noopener')
+                    }}
+                  >
+                    Pay now
+                  </button>
                 </div>
               </div>
             </div>
-
-            <button 
-              onClick={() => {
-                setAccountData(null)
-                setAccountId('')
-                localStorage.removeItem('accountId')
-              }} 
-              className="btn-secondary"
-            >
-              Load Different Account
-            </button>
           </div>
         )}
       </div>
