@@ -1,7 +1,7 @@
 .floating-translate-container {
   position: fixed;
-  bottom: 1.5rem;
-  left: 1.5rem;
+  bottom: 0.5rem;
+  right: 0.5rem;
   z-index: 999;
   background: white;
   border-radius: 8px;

@@ -11,13 +11,13 @@
     <script type="module" src="/src/main.jsx"></script>
     <script type="text/javascript">
       function googleTranslateElementInit() {
-        const element = document.getElementById('google_translate_element');
+        const element = document.getElementById('floating_google_translate_element');
         if (element && window.google && window.google.translate) {
-          new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+          new google.translate.TranslateElement({ pageLanguage: 'en' }, 'floating_google_translate_element');
         }
       }
       // Load Google Translate script
-      (function() {
+      (function () {
         const script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';

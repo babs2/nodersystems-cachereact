@@ -30,7 +30,14 @@ function NavBar() {
   return (
     <nav className="navbar">
       <div className="nav-container">
-        <h1 className="nav-logo">Debt Self-Service Portal</h1>
+        <div className="nav-logo-container">
+          <img
+            src="https://www.fiscal.treasury.gov/images/fiscal-service-logo.svg"
+            alt="Bureau of the Fiscal Service"
+            className="nav-logo-image"
+          />
+          <h1 className="nav-logo">Debt Self-Service Portal</h1>
+        </div>
         <div className="nav-right">
           <ul className="nav-menu">
             <li className="nav-item">
