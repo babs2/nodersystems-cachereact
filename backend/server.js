@@ -110,7 +110,7 @@ const mockAccountData = {
     city: 'Springfield',
     state: 'VA',
     zipCode: '22150',
-    taxpayerId: '***-**-6789',
+    taxpayerId: '123-45-6789',
     currentBalance: 1250.50
   }
 }

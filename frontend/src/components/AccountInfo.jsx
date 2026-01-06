@@ -348,7 +348,7 @@ function AccountInfo() {
                           })
                         }}
                       >
-                        {showTaxpayerId ? 'Hide' : 'Peek'}
+                        {showTaxpayerId ? 'Hide' : 'Show'}
                       </button>
                     </div>
                     <button

@@ -421,7 +421,7 @@ function DebtView() {
                                   })
                                 }}
                               >
-                                {showTaxpayerId ? 'Hide' : 'Peek'}
+                                {showTaxpayerId ? 'Hide' : 'Show'}
                               </button>
                             </div>
                             <button
