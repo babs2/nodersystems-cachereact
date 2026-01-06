@@ -1,0 +1,29 @@
+# Node / npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Frontend build artifacts
+frontend/dist/
+frontend/.vite/
+
+# Backend build / runtime artifacts
+backend/*.log
+
+# Environment files (secrets)
+.env
+backend/.env
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Cursor / IDE project metadata (optional, if present)
+.cursor/
+
